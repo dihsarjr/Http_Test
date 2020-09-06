@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http_test/http_provider.dart';
 import 'package:http_test/model_post.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -10,6 +11,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Post> data;
+  dynamic currentTime = DateFormat('hh').format(DateTime.now());
+  dynamic currentTimeM = DateFormat('mm').format(DateTime.now());
+  dynamic currentTimeA = DateFormat('a').format(DateTime.now());
+
   @override
   void initState() {
     super.initState();
@@ -60,6 +65,8 @@ class _HomeState extends State<Home> {
                                 child: Text(
                                     httpProvider.posts[i].userId.toString()),
                               ),
+                              Text(
+                                  '${(int.parse(currentTime) + 1).toString()}:$currentTimeM $currentTimeA'),
                             ],
                           ),
                         ),
