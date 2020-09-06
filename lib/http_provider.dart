@@ -6,7 +6,7 @@ import 'package:http_test/model_post.dart';
 
 class HttpProvider with ChangeNotifier {
   final url = 'https://jsonplaceholder.typicode.com/posts';
-  List<Post> posts = [];
+  List<Post> posts;
 
   Future<List<Post>> getPost() async {
     Response response = await get(url);
@@ -16,6 +16,7 @@ class HttpProvider with ChangeNotifier {
       posts = body.map((dynamic item) => Post.fromJson(item)).toList();
 
       print(response.body);
+      notifyListeners();
       return posts;
     } else {
       // throw 'Something is Wrong';

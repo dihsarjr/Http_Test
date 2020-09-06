@@ -18,11 +18,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var httpProvider = Provider.of<HttpProvider>(context);
-    Provider.of<HttpProvider>(context).getPost().then((value) {
-      setState(() {
-        data = value;
-      });
-    });
+    Provider.of<HttpProvider>(context).getPost();
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +28,7 @@ class _HomeState extends State<Home> {
         children: [
           Expanded(
               child: Container(
-            child: data == null
+            child: httpProvider.posts == null
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
@@ -48,26 +44,28 @@ class _HomeState extends State<Home> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(data[i].body),
+                                child: Text(httpProvider.posts[i].body),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(data[i].id.toString()),
+                                child:
+                                    Text(httpProvider.posts[i].id.toString()),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(data[i].title),
+                                child: Text(httpProvider.posts[i].title),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(data[i].userId.toString()),
+                                child: Text(
+                                    httpProvider.posts[i].userId.toString()),
                               ),
                             ],
                           ),
                         ),
                       );
                     },
-                    itemCount: data.length,
+                    itemCount: httpProvider.posts.length,
                   ),
           ))
         ],
